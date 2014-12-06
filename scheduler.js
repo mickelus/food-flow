@@ -3,6 +3,9 @@ var scheduler = {
 	_completedSteps: [],
 	_listeners: [],
 	init: function(recipe) {
+		scheduler._steps = [];
+		scheduler._completedSteps = [];
+		
 		for (var i = 0; i < recepie.steps.length; i++) {
 			scheduler._steps.push(recepie.steps[i]);
 		}
