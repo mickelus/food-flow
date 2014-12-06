@@ -6,6 +6,10 @@ var scheduler = {
 		for (var i = 0; i < recepie.steps.length; i++) {
 			scheduler._steps.push(recepie.steps[i]);
 		}
+
+		for (var j = 0; j < scheduler._listeners.length; j++) {
+			scheduler._listeners[j]();
+		}
 	},
 	completeStep: function(stepId) {
 		for (var i = 0; i  < scheduler._steps.length; i++) {
