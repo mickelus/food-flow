@@ -26,12 +26,19 @@ body, html {
     top:10px;
     bottom:10px;
     left:10px;
-    bottom: 10px;
     border-radius:2px;
-    border:1px solid #eaeaea;
+    border:1px solid #7DCB63;
     box-shadow: 0 1px 1px rgba(0,0,0,0.2);
 }
 #progress{
-	background-color: green;
-	border-radius: 2px;
+	background-color: #7DCB63;
+}
+#timerView{
+    position:absolute;
+    padding:15px;
+    border-radius: 2px;
+    border:1px solid #C52727;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    right: 30px;
+    bottom: 30px;
 }
