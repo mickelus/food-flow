@@ -1,5 +1,4 @@
 scheduler.init(recipes.soup);
-document.querySelector('#progress').style.height="43%";
 
 window.addEventListener("load",function() {
     // Set a timeout...
@@ -8,3 +7,9 @@ window.addEventListener("load",function() {
         window.scrollTo(0, 1);
     }, 0);
 });
+
+//Update progressBar
+scheduler.onChange(function() {
+    var progress = scheduler.getProgress();
+    document.querySelector('#progress').style.height= progress*100 + "%";    
+})
