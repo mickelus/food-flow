@@ -58,7 +58,11 @@ var scheduler = {
 	getTimers: function() {
 		var timeouts = [];
 		for (var i = 0; i < scheduler._activeTimers.length; i++) {
-			timeouts.push(scheduler._activeTimers[i].triggerTime);
+			var timer = scheduler._activeTimers[i];
+			timeouts.push({
+				started: timer.triggerTime,
+				ends: timer.triggerTime
+			});
 		}
 
 		return timeouts;
@@ -147,6 +151,7 @@ var scheduler = {
 			if(requirementsFound === step.requires.length) {
 				console.log("'" + step.description + "' will be activated");
 				var scale = 1;
+				var now = new Date().getTime();
 
 				if(scheduler.fastTimers) {
 					scale = 1 / 60;
@@ -154,8 +159,10 @@ var scheduler = {
 
 				scheduler._activeTimers.push({
 					step: step,
-					triggerTime: new Date().getTime() + step.delay * 1000 * scale
+					started: now,
+					triggerTime: now + step.delay * 1000 * scale
 				});
+
 				scheduler._delayedSteps.splice(s, 1);
 
 				if(scheduler._timerLoop === null) {

@@ -5,8 +5,11 @@
     <meta charset="utf-8">
     <title>Food Flow</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:100,400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="style.css">
+
+    <link rel="import" href="bower_components/polymer/polymer.html">
+    <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
     
     <script type="text/javascript" src="recipes.js" defer></script>
     <script type="text/javascript" src="scheduler.js" defer></script>
@@ -17,17 +20,41 @@
 </head>
 
 <body>
-    <div id="screen">
-        <div id="progressBar">
-            <div id="progress"></div>
+    <div class="rapper noselect">
+        <div class="screen current">
+            <img class="logo" src="logo.png">
+            <button id="splashButton" class="nextButton">Get started</button>
         </div>
-        <div id="boxContainer">
+        <div class="screen">
+            <h1>Requirements</h1>
+            <ul>
+                <li>Kastrull</li>
+                <li>Slev</li>
+                <li>Glatt humör</li>
+            </ul>
+            <button id="splashButton" class="nextButton">Open Shopping list</button>
+        </div>
 
+        <div class="screen">
+            <h1>Shopping list</h1>
+            <ul>
+                <li><paper-checkbox></paper-checkbox><label>4 Tomater</label></li>
+                <li><paper-checkbox></paper-checkbox><label>25g Kokain</label></li>
+                <li><paper-checkbox></paper-checkbox><label>1 Paprika</label></li>
+            </ul>
+            <button id="splashButton" class="nextButton">Lets get going!</button>
         </div>
-        <div class="time"></div>
-        <div id="timerView">
-        	<div id="timerProgress">
-        	</div>
+        <div class="screen">
+            <div id="progressBar">
+                <div id="progress"></div>
+            </div>
+            <div id="boxContainer">
+
+            </div>
+            <div class="time">20:12</div>
+            <div id="timerView">
+               <div id="timerProgress"></div>
+            </div>
         </div>
     </div>
     

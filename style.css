@@ -2,22 +2,66 @@ body, html {
     height: 100%;
     background-color: #eee;
     font-family: Roboto;
+    overflow: hidden;
 }
 *{
     padding:0;
     margin:0;
 }
-#screen{
-    position:relative;
-    max-width: 400px;
-    max-height: 700px;
-    width: 100%;
-    height: 100%;
+.rapper {
+    position: relative;
     margin: 0 auto;
     top: 50%;
     transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
+    max-width: 400px;
+    max-height: 700px;
+    width: 100%;
+    height: 100%;
 }
+.screen {
+    position:absolute;
+    left: 100%;
+    width: 100%;
+    height: 100%;
+    
+    opacity: 0;
+    transition: left 0.2s ease-in-out, opacity 0.2s;
+}
+.screen.current {
+    left: 0;
+    opacity: 1;
+}
+.screen.past {
+    left: -100%;
+    opacity: 0;
+}
+
+.logo {
+    max-width: 80%;
+    margin: 0 auto;
+    display: block;
+    margin-top: 25px;
+}
+
+.nextButton {
+    width: 60%;
+    margin: 0 auto;
+    display: block;
+    padding: 15px;
+    background-color: #009347;
+    color: white;
+    font-weight: 400;
+    font-size: 18px;
+    letter-spacing: 2px;
+    border-radius: 2px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    margin-top: 50px;
+    font-family: Roboto;
+    border: none;
+    outline: none;
+}
+
 #progressBar{
     padding:0;
     width:4px;
@@ -53,6 +97,36 @@ body, html {
     font-weight: bold;
     background-color: #5784C8
 }
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+ul {
+    list-style: none;
+    padding: 0 30px;
+    font-size: 18px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+paper-checkbox {
+    margin-right: 10px;
+    position: relative;
+    top: 1px;
+}
+
+h1 {
+    padding: 20px;
+}
+
 .time{
     position: absolute;
     right: 80px;

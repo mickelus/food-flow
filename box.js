@@ -1,13 +1,16 @@
 function removeBox() {
     var that = $(this);
     var top = parseInt(that.css('top'), 10);
-    if(top <= 0) {
+    if(top <= 10 ) {
         that.addClass("removed");
+        
         setTimeout(function() {
             that.remove();
             scheduler.completeStep(scheduler.getCurrentStep().id);
         }, 200);
         return false;
+    } else {
+        $(this).data("dragging", false);
     }
     return true;
 }
@@ -16,10 +19,12 @@ function showBox(text) {
     var box = $($("#boxTemplate").html());
     box.find("span").text(text);
 
+    setTimeout(function() {
+        box.addClass("show");
+    }, 200)
+
     box.click(function() {
         if(!$(this).data("dragging")) {
-
-
             removeBox.apply(this);
         }
     });
@@ -29,7 +34,6 @@ function showBox(text) {
         revert: removeBox,
         drag: function() {
             var that = $(this);
-            that.data("dragging", true);
             var ref =  $("#boxContainer").offset().top + 80;
             var top = parseInt(that.css('top'), 10);
             if(top <= 0) {
@@ -39,6 +43,9 @@ function showBox(text) {
                 that.css("opacity", 1);
             }
         },
+        start: function() {
+           $(this).data("dragging", true);
+        }
     });
 
     $("#boxContainer").append(box);

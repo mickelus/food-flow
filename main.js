@@ -1,13 +1,5 @@
 scheduler.init(recipes.soup);
 
-window.addEventListener("load",function() {
-    // Set a timeout...
-    setTimeout(function(){
-        // Hide the address bar!
-        window.scrollTo(0, 1);
-    }, 0);
-});
-
 //Update progressBar
 scheduler.onChange(function() {
     var progress = scheduler.getProgress();
@@ -32,5 +24,13 @@ scheduler.onChange(function(){
 		document.querySelector('#time').innerHTML = minutes + ":" + seconds;
 		document.querySelector('#timerProgress').style.height = ((lowestTimer.ends - lowestTimer.started)/remaining)*100 + "%";
 	}
-	//If no timers, do nothing?
+	//If no timers, do nothing?  
+})
+
+
+$(".nextButton").click(function() {
+   console.log("hola chicos")
+    var current = $(".screen.current").addClass("past");
+    current.next().addClass("current");
+    current.removeClass("current");
 })
