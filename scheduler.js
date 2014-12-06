@@ -2,19 +2,19 @@ var scheduler = {
 	_steps: [],
 	_completedSteps: [],
 	_listeners: [],
-	init: function(recepie) {
-		for (var i = recepie.steps.length - 1; i >= 0; i--) {
+	init: function(recipe) {
+		for (var i = 0; i < recepie.steps.length; i++) {
 			scheduler._steps.push(recepie.steps[i]);
 		}
 	},
 	completeStep: function(stepId) {
-		for (var i = scheduler._steps.length - 1; i >= 0; i--) {
+		for (var i = 0; i  < scheduler._steps.length; i++) {
 			var step = scheduler._steps[i];
 			if(step.id == stepId) {
 				scheduler._steps.splice(i, 1);
 				scheduler._completedSteps.push(step);
 
-				for (var j = scheduler._listeners.length - 1; j >= 0; j--) {
+				for (var j = 0; j < scheduler._listeners.length; j++) {
 					scheduler._listeners[j]();
 				}
 
