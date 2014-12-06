@@ -4,19 +4,20 @@
 	margin:0;
 }
 .wrapper{
-	text-align: center;
+	margin: 20px 0px;
 }
 #screen{
-	width:10%;
 	position:relative;
+	max-width: 400px;
+	margin: 0 auto;
 }
 #progressBar{
-	width:4%;
+	width:5%;
 	display: inline-block;
 	position:absolute;
-	left:1%;
+	left:20px;
+	bottom: 
 }
 #progress{
 	background-color: green;
-
 }
