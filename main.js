@@ -1,5 +1,5 @@
 
-document.querySelector('#progress').style.height="43px";
+document.querySelector('#progress').style.height="43%";
 
 window.addEventListener("load",function() {
     // Set a timeout...
