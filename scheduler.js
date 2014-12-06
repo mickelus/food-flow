@@ -6,8 +6,8 @@ var scheduler = {
 		scheduler._steps = [];
 		scheduler._completedSteps = [];
 		
-		for (var i = 0; i < recepie.steps.length; i++) {
-			scheduler._steps.push(recepie.steps[i]);
+		for (var i = 0; i < recipe.steps.length; i++) {
+			scheduler._steps.push(recipe.steps[i]);
 		}
 
 		for (var j = 0; j < scheduler._listeners.length; j++) {
