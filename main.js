@@ -11,5 +11,5 @@ window.addEventListener("load",function() {
 //Update progressBar
 scheduler.onChange(function() {
     var progress = scheduler.getProgress();
-    document.querySelector('#progress').style.height= progress*100 + "%";    
+    document.querySelector('#progress').style.height= (progress*99 + 1) + "%";    
 })

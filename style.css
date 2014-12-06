@@ -33,6 +33,7 @@ body, html {
 #progress{
 	background-color: #7DCB63;
     transition: height 0.2s ease-in-out;
+    height:1%;
 }
 #timerView{
     position:absolute;
