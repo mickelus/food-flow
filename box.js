@@ -3,9 +3,10 @@ function removeBox() {
     var top = parseInt(that.css('top'), 10);
     if(top <= 10 ) {
         that.addClass("removed");
+        scheduler.completeStep(scheduler.getCurrentStep().id);
         setTimeout(function() {
             that.remove();
-            scheduler.completeStep(scheduler.getCurrentStep().id);
+            
         }, 200);
         return false;
     } else {
