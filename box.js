@@ -5,7 +5,7 @@ function removeBox() {
         that.addClass("removed");
         setTimeout(function() {
             that.remove();
-            scheduler.completeStep();
+            scheduler.completeStep(scheduler.getCurrentStep().id);
         }, 200);
         return false;
     }
@@ -38,7 +38,11 @@ function showBox(text) {
 }
 
 scheduler.onChange(function() {
-    showBox(scheduler.getCurrentStep().description);
+    var step = scheduler.getCurrentStep();
+    if(step) {
+        showBox(step.description);
+    }
+    
 })
 
-showBox("Hacka 450g vitlök i små strimlor");
+showBox(scheduler.getCurrentStep().description);

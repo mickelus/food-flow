@@ -1,4 +1,4 @@
-
+scheduler.init(recipes.soup);
 document.querySelector('#progress').style.height="43%";
 
 window.addEventListener("load",function() {
