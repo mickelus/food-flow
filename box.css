@@ -12,8 +12,19 @@
     padding: 15px;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
+    transition: 0.2s;
+    top: 100px;
+    opacity: 0;
+}
+
+.box.ui-draggable-dragging {
+    transition: none;
+}
+
+.box.show {
     
     top: 0;
+    opacity: 1;
 }
 
 .box.removed {
