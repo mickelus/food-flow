@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link href='http://fonts.googleapis.com/css?family=Roboto:100,400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="style.css">
+
+    <link rel="import" href="bower_components/polymer/polymer.html">
+    <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
     
     <script type="text/javascript" src="recipes.js" defer></script>
     <script type="text/javascript" src="scheduler.js" defer></script>
@@ -34,9 +37,9 @@
         <div class="screen">
             <h1>Shopping list</h1>
             <ul>
-                <li><input type="checkbox"><label>4 Tomater</label></li>
-                <li><input type="checkbox"><label>25g Kokain</label></li>
-                <li><input type="checkbox"><label>1 Paprika</label></li>
+                <li><paper-checkbox></paper-checkbox><label>4 Tomater</label></li>
+                <li><paper-checkbox></paper-checkbox><label>25g Kokain</label></li>
+                <li><paper-checkbox></paper-checkbox><label>1 Paprika</label></li>
             </ul>
             <button id="splashButton" class="nextButton">Lets get going!</button>
         </div>
