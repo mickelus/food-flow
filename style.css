@@ -8,26 +8,25 @@ body, html {
 	margin:0;
 }
 .wrapper{
-	text-align: center;
-	margin: 0 auto;
-	max-width: 500px;
+	height: 100%;
+	padding: 20px 0px;
+	box-sizing: border-box;
+}
+#screen{
+	position:relative;
+	max-width: 400px;
 	width: 100%;
-	padding: 0 20px;
-	position: relative;
+	margin: 0 auto;
 	top: 50%;
 	transform: translateY(-50%);
 }
-#screen{
-	width:10%;
-	position:relative;
-}
 #progressBar{
-	width:4%;
+	width:5%;
 	display: inline-block;
 	position:absolute;
-	left:1%;
+	left:20px;
+	bottom: 
 }
 #progress{
 	background-color: green;
-
 }
