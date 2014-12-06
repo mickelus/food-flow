@@ -32,4 +32,5 @@ body, html {
 }
 #progress{
 	background-color: green;
+	border-radius: 1px;
 }
