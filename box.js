@@ -1,16 +1,44 @@
+function removeBox() {
+    var that = $(this);
+    var top = parseInt(that.css('top'), 10);
+    if(top <= 0) {
+        that.addClass("removed");
+        setTimeout(function() {
+            that.remove();
+            scheduler.completeStep();
+        }, 200);
+        return false;
+    }
+    return true;
+}
+
 function showBox(text) {
     var box = $($("#boxTemplate").html());
     box.find("span").text(text);
 
-    box.click(function(){
-        var that = $(this);
-        that.addClass("removed");
-        setTimeout(function() {
-            that.remove();
-        }, 200);
-    })
+    box.click(removeBox);
+
+    box.draggable({
+        axis: "y",
+        revert: removeBox,
+        drag: function() {
+            var that = $(this);
+            var ref =  $("#boxContainer").offset().top + 80;
+            var top = parseInt(that.css('top'), 10);
+            if(top <= 0) {
+                var opacity = (top + ref) / ref;
+                that.css("opacity", opacity);
+            } else {
+                that.css("opacity", 1);
+            }
+        },
+    });
 
     $("#boxContainer").append(box);
 }
 
-showBox("HACKA LÖKEN");
+scheduler.onChange(function() {
+    showBox(scheduler.getCurrentStep().description);
+})
+
+showBox("Hacka 450g vitlök i små strimlor");
