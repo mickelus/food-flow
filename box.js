@@ -16,13 +16,20 @@ function showBox(text) {
     var box = $($("#boxTemplate").html());
     box.find("span").text(text);
 
-    box.click(removeBox);
+    box.click(function() {
+        if(!$(this).data("dragging")) {
+
+
+            removeBox.apply(this);
+        }
+    });
 
     box.draggable({
         axis: "y",
         revert: removeBox,
         drag: function() {
             var that = $(this);
+            that.data("dragging", true);
             var ref =  $("#boxContainer").offset().top + 80;
             var top = parseInt(that.css('top'), 10);
             if(top <= 0) {
