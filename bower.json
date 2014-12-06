@@ -1,0 +1,14 @@
+{
+  "name": "food-flow",
+  "version": "0.0.0",
+  "homepage": "https://github.com/mickelus/food-flow",
+  "authors": [
+    "Mikael E. Wikner <wikner.mikael@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "polymer": "~0.5.1",
+    "paper-checkbox": "polymer/paper-checkbox#~0.5.1"
+  }
+}
