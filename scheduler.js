@@ -7,7 +7,10 @@ var scheduler = {
 	_activeTimers: [],
 
 	_timerLoop: null,
+
 	fastTimers: false,
+	tools: [],
+	ingredients: [],
 
 	init: function(recipe) {
 		scheduler._steps = [];
@@ -16,6 +19,9 @@ var scheduler = {
 		scheduler._delayedSteps = [];
 		scheduler._activeTimers = [];
 		scheduler._timerLoop = null;
+
+		scheduler.tools = [];
+		scheduler.ingredients = [];
 		
 		for (var i = 0; i < recipe.steps.length; i++) {
 			var step = recipe.steps[i];
@@ -24,6 +30,14 @@ var scheduler = {
 				scheduler._delayedSteps.push(step);
 			} else {
 				scheduler._steps.push(step);
+			}
+
+			if(Array.isArray(step.tools)) {
+				scheduler.tools = scheduler.tools.concat(step.tools);
+			}
+
+			if(Array.isArray(step.ingredients)) {
+				scheduler.ingredients = scheduler.ingredients.concat(step.ingredients);
 			}
 		}
 

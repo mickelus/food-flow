@@ -5,16 +5,21 @@ var recipes = {
 			{
 				id: 0,
 				description: "Sätt ugnen på 250 grader C",
+				tools: ["ugn"],
 				requires: []
 			},
 			{
 				id: 1,
 				description: "Olja en plåt",
+				tools: ["ugnsplåt"],
+				ingredients: ["olja"],
 				requires: [0]
 			},
 			{
 				id: 2,
 				description: "Dela och kärna ur 5 röda paprikor",
+				tools: ["skärbräda", "kniv"],
+				ingredients: ["5 röda paprikor"],
 				requires: [1]
 			},
 			{
@@ -35,16 +40,20 @@ var recipes = {
 			{
 				id: 6,
 				description: "Skala och hacka 2 vitlöksklyftor",
+				ingredients: ["2 vitlöksklyftor"],
 				requires: [5]
 			},
 			{
 				id: 7,
 				description: "Skala och hacka 1 rödlök",
+				ingredients: ["1 rödlök"],
 				requires: [6]
 			},
 			{
 				id: 8,
 				description: "Häll 2 matskedar olivolja i en kastrull",
+				tools: ["kastrull"],
+				ingredients: ["2 matskedar olivolja"],
 				requires: [7]
 			},
 			{
@@ -55,6 +64,7 @@ var recipes = {
 			{
 				id: 10,
 				description: "Grovhacka 3 tomater",
+				ingredients: ["3 tomater"],
 				requires: [9]
 			},
 			{
@@ -70,23 +80,27 @@ var recipes = {
 			{
 				id: 13,
 				description: "Häll på 8 dl grönsaksbuljong och låt sjuda i 10 minuter",
+				ingredients: ["8 dl grönsaksbuljong"],
 				requires: [12],
 				delay: 300
 			},
 			{
 				id: 14,
-				description: "Mixa helt slät med en mixer",
+				description: "Mixa helt slät med en stavmixer",
+				tools: ["stavmixer"],
 				requires: [13],
 				delay: 600
 			},
 			{
 				id: 15,
 				description: "Smaka av med salt och peppar",
+				ingredients: ["salt", "svartpeppar"],
 				requires: [14]
 			},
 			{
 				id: 16,
 				description: "Servera med olivkräm",
+				ingredients: ["olivkräm"],
 				requires: [15]
 			}
 		]
