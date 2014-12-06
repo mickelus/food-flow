@@ -4,7 +4,7 @@
 	margin:0;
 }
 .wrapper{
-	margin: 20px 0px;
+	margin: 10px 0px;
 }
 #screen{
 	position:relative;
@@ -15,7 +15,9 @@
 	width:5%;
 	display: inline-block;
 	position:absolute;
-	left:20px;
+	top:10px;
+	bottom:10px;
+	left:10px;
 	bottom: 
 }
 #progress{
