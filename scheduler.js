@@ -1,53 +1,75 @@
 var scheduler = {
 	_steps: [],
+	_queued: [],
 	_completedSteps: [],
+	_delayedSteps: [],
 	_listeners: [],
+	_activeTimers: [],
+
+	_timerLoop: null,
+	fastTimers: false,
+
 	init: function(recipe) {
 		scheduler._steps = [];
+		scheduler._queued = [];
 		scheduler._completedSteps = [];
+		scheduler._delayedSteps = [];
+		scheduler._activeTimers = [];
+		scheduler._timerLoop = null;
 		
 		for (var i = 0; i < recipe.steps.length; i++) {
-			scheduler._steps.push(recipe.steps[i]);
+			var step = recipe.steps[i];
+
+			if(typeof step.delay !== "undefined") {
+				scheduler._delayedSteps.push(step);
+			} else {
+				scheduler._steps.push(step);
+			}
 		}
 
 		scheduler._reschedule();
-
-		for (var j = 0; j < scheduler._listeners.length; j++) {
-			scheduler._listeners[j]();
-		}
+		scheduler._callListeners();
 	},
 	completeStep: function(stepId) {
-		for (var i = 0; i  < scheduler._steps.length; i++) {
-			var step = scheduler._steps[i];
+		for (var i = 0; i  < scheduler._queued.length; i++) {
+			var step = scheduler._queued[i];
 			if(step.id == stepId) {
-				scheduler._steps.splice(i, 1);
+				scheduler._queued.splice(i, 1);
 				scheduler._completedSteps.push(step);
 
 				scheduler._reschedule();
 
-				for (var j = 0; j < scheduler._listeners.length; j++) {
-					scheduler._listeners[j]();
-				}
+				scheduler._callListeners();
 
 				break;
 			}
 		}
 	},
 	getCurrentStep: function() {
-		if(scheduler._steps.length === 0) {
+		if(scheduler._queued.length === 0) {
 			return null;
 		} else {
-			return scheduler._steps[0];
+			return scheduler._queued[0];
 		}
 	},
 	onChange: function(callback) {
 		scheduler._listeners.push(callback);
 	},
 	getTimers: function() {
-		return [];
+		var timeouts = [];
+		for (var i = 0; i < scheduler._activeTimers.length; i++) {
+			timeouts.push(scheduler._activeTimers[i].triggerTime);
+		}
+
+		return timeouts;
 	},
 	getProgress: function() {
-		var sum = scheduler._steps.length + scheduler._completedSteps.length;
+		var sum = scheduler._steps.length +
+				scheduler._completedSteps.length +
+				scheduler._queued.length +
+				scheduler._delayedSteps.length +
+				scheduler._activeTimers.length;
+
 		if(sum === 0) {
 			return 0;
 		} else {
@@ -56,18 +78,23 @@ var scheduler = {
 	},
 
 	_reschedule: function() {
-		var scheduled = [];
+		var queued = [];
+		var waiting = scheduler._steps.concat(scheduler._queued);
 
-		while(scheduler._steps.length > 0) {
-			for(var s = 0; s < scheduler._steps.length; s++)  {
-				var step = scheduler._steps[s];
-				var requirementsFound = 0;
+		var added, step, s, i, j, requirementsFound, found, id;
 
-				for (var i = step.requires.length - 1; i >= 0; i--) {
-					var found = false;
-					var id = step.requires[i];
+		do {
+			added = 0;
 
-					for (var j = scheduler._completedSteps.length - 1; j >= 0; j--) {
+			for(s = 0; s < waiting.length; s++)  {
+				step = waiting[s];
+				requirementsFound = 0;
+
+				for (i = step.requires.length - 1; i >= 0; i--) {
+					found = false;
+					id = step.requires[i];
+
+					for (j = scheduler._completedSteps.length - 1; j >= 0; j--) {
 						if(scheduler._completedSteps[j].id === id) {
 							found = true;
 							break;
@@ -75,8 +102,8 @@ var scheduler = {
 					}
 
 					if(!found) {
-						for (j = scheduled.length - 1; j >= 0; j--) {
-							if(scheduled[j].id === id) {
+						for (j = queued.length - 1; j >= 0; j--) {
+							if(queued[j].id === id) {
 								found = true;
 								break;
 							}
@@ -89,13 +116,75 @@ var scheduler = {
 				}
 
 				if(requirementsFound == step.requires.length) {
-					scheduled.push(step);
-					scheduler._steps.splice(s, 1);
+					queued.push(step);
+					waiting.splice(s, 1);
 					s = 0;
+					added++;
+				}
+			}
+		} while(added > 0);
+
+		for (s = scheduler._delayedSteps.length - 1; s >= 0; s--) {
+			step = scheduler._delayedSteps[s];
+			requirementsFound = 0;
+
+			for (i = step.requires.length - 1; i >= 0; i--) {
+				found = false;
+				id = step.requires[i];
+
+				for (j = scheduler._completedSteps.length - 1; j >= 0; j--) {
+					if(scheduler._completedSteps[j].id === id) {
+						found = true;
+						break;
+					}
+				}
+
+				if(found) {
+					requirementsFound++;
+				}
+			}
+
+			if(requirementsFound === step.requires.length) {
+				console.log("'" + step.description + "' will be activated");
+				var scale = 1;
+
+				if(scheduler.fastTimers) {
+					scale = 1 / 60;
+				}
+
+				scheduler._activeTimers.push({
+					step: step,
+					triggerTime: new Date().getTime() + step.delay * 1000 * scale
+				});
+				scheduler._delayedSteps.splice(s, 1);
+
+				if(scheduler._timerLoop === null) {
+					scheduler._timerLoop = setInterval(scheduler._checkTimers, 200);
 				}
 			}
 		}
 
-		scheduler._steps = scheduled;
+		scheduler._queued = queued;
+		scheduler._steps = waiting;
+	},
+	_checkTimers: function() {
+		var changed = false;
+		for (var i = scheduler._activeTimers.length - 1; i >= 0; i--) {
+			var timer = scheduler._activeTimers[i];
+			if(timer.triggerTime <= new Date().getTime()) {
+				scheduler._activeTimers.splice(i, 1);
+				scheduler._queued.unshift(timer.step);
+				changed = true;
+			}
+		}
+
+		if(changed) {
+			scheduler._callListeners();
+		}
+	},
+	_callListeners: function() {
+		for (var i = 0; i < scheduler._listeners.length; i++) {
+			scheduler._listeners[i]();
+		}
 	}
 };

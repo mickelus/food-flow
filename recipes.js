@@ -70,12 +70,14 @@ var recipes = {
 			{
 				id: 13,
 				description: "Häll på 8 dl grönsaksbuljong och låt sjuda i 10 minuter",
-				requires: [12]
+				requires: [12],
+				delay: 300
 			},
 			{
 				id: 14,
 				description: "Mixa helt slät med en mixer",
-				requires: [13]
+				requires: [13],
+				delay: 600
 			},
 			{
 				id: 15,
