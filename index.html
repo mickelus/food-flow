@@ -4,8 +4,12 @@
 <head>
     <meta charset="utf-8">
     <title>Food Flow</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+    
     <script type="text/javascript" src="main.js" defer></script>
+
+    <link rel="stylesheet" type="text/css" href="box.css">
+    <script type="text/javascript" src="box.js" defer></script>
 </head>
 
 <body>
@@ -14,9 +18,19 @@
 		    <div id="progressBar">
 		    	<div id="progress"></div>
 		    </div>
+            <div id="boxContainer">
+
+            </div>
 		</div>
 	</div>
     
     <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+
+    <script id="boxTemplate" type="text/template">
+        <div class="box">
+            <h1>Test</h1>
+        </div>
+    </script>
+
 </body>
 </html>
