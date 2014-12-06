@@ -47,7 +47,7 @@ var scheduler = {
 		if(sum === 0) {
 			return 0;
 		} else {
-			return scheduler._steps.length / sum;
+			return scheduler._completedSteps.length / sum;
 		}
 	}
 };
