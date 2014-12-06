@@ -1,7 +1,16 @@
-function addBox() {
+function showBox(text) {
     var box = $($("#boxTemplate").html());
-   console.log($("#boxTemplate").html())
+    box.find("span").text(text);
+
+    box.click(function(){
+        var that = $(this);
+        that.addClass("removed");
+        setTimeout(function() {
+            that.remove();
+        }, 200);
+    })
+
     $("#boxContainer").append(box);
 }
 
-addBox();
+showBox("HACKA LÖKEN");

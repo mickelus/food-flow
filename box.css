@@ -1,3 +1,22 @@
+#boxContainer {
+    padding-top: 20%;
+}
+
 .box {
-    background-color: #ccc;
+    position: relative;
+    background-color: #eaeaea;
+    border-radius: 2px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    width: 80%;
+    margin: 0 auto;
+    padding: 15px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    transition: 0.2s;
+    top: 0;
+}
+
+.box.removed {
+    top: -100px;
+    opacity: 0;
 }
