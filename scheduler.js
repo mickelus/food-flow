@@ -10,8 +10,9 @@ var scheduler = {
 	_timerLoop: null,
 
 	fastTimers: false,
-	tools: [],
+	tools: {},
 	ingredients: [],
+	_unusedTools: [],
 
 	init: function(recipe) {
 		scheduler._steps = [];
@@ -21,8 +22,9 @@ var scheduler = {
 		scheduler._activeTimers = [];
 		scheduler._timerLoop = null;
 
-		scheduler.tools = [];
+		scheduler.tools = {};
 		scheduler.ingredients = [];
+		scheduler._unusedTools = [];
 		
 		for (var i = 0; i < recipe.steps.length; i++) {
 			var step = recipe.steps[i];
@@ -34,7 +36,14 @@ var scheduler = {
 			}
 
 			if(Array.isArray(step.tools)) {
-				scheduler.tools = scheduler.tools.concat(step.tools);
+				for (var j = step.tools.length - 1; j >= 0; j--) {
+					var tool = step.tools[j];
+					if(typeof scheduler.tools[tool] === "undefined") {
+						scheduler.tools[tool] = [step.id];
+					} else {
+						scheduler.tools[tool].push(step.id);
+					}
+				}
 			}
 
 			if(Array.isArray(step.ingredients)) {
@@ -57,6 +66,20 @@ var scheduler = {
 				scheduler._callListeners();
 
 				break;
+			}
+		}
+
+		for(var tool in scheduler.tools) {
+			var usedIn = scheduler.tools[tool];
+			for (i = usedIn.length - 1; i >= 0; i--) {
+				if(usedIn[i] === stepId) {
+					usedIn.splice(i, 1);
+				}
+			}
+
+			if(usedIn.length === 0) {
+				scheduler._unusedTools.push(tool);
+				delete scheduler.tools[tool];
 			}
 		}
 	},

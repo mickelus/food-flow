@@ -59,9 +59,9 @@ $(".nextButton").click(function() {
 })
 
 
-for (var i = 0; i < scheduler.tools.length; i++) {
+for (var tool in scheduler.tools) {
     var item = $("<li>");
-    item.append(scheduler.tools[i]);
+    item.append(tool);
     $("#toolList").append(item);
 }
 
