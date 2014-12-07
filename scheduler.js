@@ -12,7 +12,7 @@ var scheduler = {
 	fastTimers: false,
 	tools: {},
 	ingredients: [],
-	_unusedTools: [],
+	unusedTools: [],
 
 	init: function(recipe) {
 		scheduler._steps = [];
@@ -24,7 +24,7 @@ var scheduler = {
 
 		scheduler.tools = {};
 		scheduler.ingredients = [];
-		scheduler._unusedTools = [];
+		scheduler.unusedTools = [];
 		
 		for (var i = 0; i < recipe.steps.length; i++) {
 			var step = recipe.steps[i];
@@ -78,7 +78,7 @@ var scheduler = {
 			}
 
 			if(usedIn.length === 0) {
-				scheduler._unusedTools.push(tool);
+				scheduler.unusedTools.push(tool);
 				delete scheduler.tools[tool];
 			}
 		}
