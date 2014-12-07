@@ -12,9 +12,7 @@ scheduler.fastTimers = true;
 scheduler.onChange(function(){
 	var activeTimers = scheduler.getTimers();
 	if(activeTimers.length>0){
-		document.querySelector('#time').style.visibility = "visible";
-		document.querySelector('#timerProgress').style.visibility = "visible";
-		document.querySelector('#timerView').style.visibility = "visible";
+		timerVisible(true);
 		var lowestTimer = activeTimers[0];
 		
 		for (var i = 0; i < activeTimers.length; i++) {
@@ -33,9 +31,7 @@ scheduler.onChange(function(){
 		}
 	}
 	else{
-		document.querySelector('#time').style.visibility = "hidden";
-		document.querySelector('#timerProgress').style.visibility = "hidden";
-		document.querySelector('#timerView').style.visibility = "hidden";
+		timerVisible(false);
 	}
 	//If finished, say so
 })
@@ -44,14 +40,10 @@ scheduler.onTick(function(){
 	var currentTime = new Date().getTime();
 	var remaining = activeTimerGlobal.ends - currentTime;
 	if(remaining<=0){
-		document.querySelector('#time').style.visibility = "hidden";
-		document.querySelector('#timerProgress').style.visibility = "hidden";
-		document.querySelector('#timerView').style.visibility = "hidden";
+		timerVisible(false);
 	}
 	else{
-		document.querySelector('#time').style.visibility = "visible";
-		document.querySelector('#timerProgress').style.visibility = "visible";
-		document.querySelector('#timerView').style.visibility = "visible";
+		timerVisible(true);
 		var minutes = Math.floor((remaining/1000) / 60);
 		var seconds = Math.floor((remaining/1000)) - minutes * 60;
 		document.querySelector('#time').innerHTML = (minutes<10?'0':'') + minutes + ":" + (seconds<10?'0':'') + seconds;
@@ -59,6 +51,18 @@ scheduler.onTick(function(){
 	}
 })
 
+function timerVisible(b){
+	if(b){
+		document.querySelector('#time').style.visibility = "visible";
+		document.querySelector('#timerProgress').style.visibility = "visible";
+		document.querySelector('#timerView').style.visibility = "visible";
+	}
+	else{
+		document.querySelector('#time').style.visibility = "hidden";
+		document.querySelector('#timerProgress').style.visibility = "hidden";
+		document.querySelector('#timerView').style.visibility = "hidden";
+	}
+}
 
 $(".nextButton").click(function() {
    console.log("hola chicos")
