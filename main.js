@@ -34,3 +34,16 @@ $(".nextButton").click(function() {
     current.next().addClass("current");
     current.removeClass("current");
 })
+
+
+for (var i = 0; i < scheduler.tools.length; i++) {
+    var item = $("<li>");
+    item.append(scheduler.tools[i]);
+    $("#toolList").append(item);
+}
+
+for (var i = 0; i < scheduler.ingredients.length; i++) {
+    var item = $("<li><paper-checkbox></paper-checkbox></li>");
+    item.append(scheduler.ingredients[i]);
+    $("#shoppingList").append(item);
+}
