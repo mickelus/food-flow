@@ -104,5 +104,102 @@ var recipes = {
 				requires: [15]
 			}
 		]
+	},
+	kalpudding: {
+		title: "Kålpudding",
+		steps: [
+			{
+				id: 0,
+				description: "Sätt ugnen på 200 grader C",
+				tools: ["ugn"],
+				requires: []
+			},
+			{
+				id: 1,
+				description: "Koka 900 g potatis",
+				ingredients: ["900 g potatis"],
+				tools: ["kastrull"],
+				requires: [0]
+			},
+			{
+				id: 2,
+				description: "Blanda 1/2 dl ströbröd med 1 dl vatten, 1/2 tsk salt, 1 krm peppar och 2 msk dijonsenap. Låt svälla någon minut",
+				ingredients: ["1/2 dl ströbröd", "1/2 tsk salt", "1 krm peppar", "2 msk dijonsenap"],
+				tools: ["bunke"],
+				requires: [1]
+			},
+			{
+				id: 3,
+				description: "Blanda ner ca 500 g blandfärs",
+				ingredients: ["ca 500 g blandfärs"],
+				requires: [2],
+				delay: 60
+			},
+			{
+				id: 4,
+				description: "Bred ut blandningen i en ugnssäker form och grädda mitt i ugnen i ca 20 minuter",
+				tools: ["ugnssäker form"],
+				requires: [3]
+			},
+			{
+				id: 5,
+				description: "Skär bort den hårda rotstocken på vitkålen (400 g)",
+				ingredients: ["400 g vitkål"],
+				tools: ["kniv", "skärbräda"],
+				requires: [4]
+			},
+			{
+				id: 6,
+				description: "Striml kålen",
+				requires: [5]
+			},
+			{
+				id: 7,
+				description: "Lägg 2 msk smör eller margarin i en stekpanna",
+				ingredients: ["2  msk smör eller margarin"],
+				tools: ["stekpanna"],
+				requires: [6]
+			},
+			{
+				id: 8,
+				description: "Bryn vitkålen lätt i stekpannan",
+				requires: [7]
+			},
+			{
+				id: 9,
+				description: "Ringla över 2 msk honung eller sirap",
+				ingredients: ["2 msk honung eller sirap"],
+				requires: [8]
+			},
+			{
+				id: 10,
+				description: "Häll över 2 1/2 dl matlagningsgrädde och låt sjuda i 5 minuter",
+				ingredients: ["2 1/2 dl matlagningsgrädde"],
+				requires: [9]
+			},
+			{
+				id: 11,
+				description: "Red såsen med 1 tsk majsstärkelse och smaka av med salt och peppar",
+				ingredients: ["1 tsk majsstärkelse"],
+				requires: [10],
+				delay: 300
+			},
+			{
+				id: "T",
+				description: "Tag ut köttfärsen ur ugnen",
+				requires: [4],
+				delay: 1200
+			},
+			{
+				id: 12,
+				description: "Häll såsen över köttfärsen",
+				requires: [11, "T"]
+			},
+			{
+				id: 13,
+				description: "Servera Kålpudding med kokt potatis",
+				requires: [12]
+			}
+		]
 	}
 };

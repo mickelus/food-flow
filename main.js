@@ -1,4 +1,4 @@
-scheduler.init(recipes.soup);
+scheduler.init(recipes.kalpudding);
 
 //Update progressBar
 scheduler.onChange(function() {
