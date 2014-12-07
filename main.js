@@ -27,7 +27,8 @@ scheduler.onChange(function(){
 			var minutes = Math.floor((remaining/1000) / 60);
 			var seconds = Math.floor((remaining/1000)) - minutes * 60;
 			document.querySelector('#time').innerHTML = (minutes<10?'0':'') + minutes + ":" + (seconds<10?'0':'') + seconds;
-			document.querySelector('#timerProgress').style.height = (remaining/(lowestTimer.ends - lowestTimer.started))*100 + "%";
+			var progress = remaining/(lowestTimer.ends - lowestTimer.started);
+			showTimerProgress(progress);
 		}
 	}
 	else{
@@ -47,9 +48,19 @@ scheduler.onTick(function(){
 		var minutes = Math.floor((remaining/1000) / 60);
 		var seconds = Math.floor((remaining/1000)) - minutes * 60;
 		document.querySelector('#time').innerHTML = (minutes<10?'0':'') + minutes + ":" + (seconds<10?'0':'') + seconds;
-		document.querySelector('#timerProgress').style.height = (remaining/(activeTimerGlobal.ends - activeTimerGlobal.started))*100 + "%";
+
+		var progress = remaining/(activeTimerGlobal.ends - activeTimerGlobal.started);
+		showTimerProgress(progress);
 	}
 })
+
+function showTimerProgress(progress) {
+		var style = document.querySelector('#timerProgress').style;
+		style.width = (progress*100) + "%";
+		style.height = (progress*100) + "%";
+		style.left = (50 - progress*50) + "%";
+		style.top = (50 - progress*50) + "%";
+}
 
 function timerVisible(b){
 	if(b){

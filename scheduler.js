@@ -101,7 +101,7 @@ var scheduler = {
 		for (var i = 0; i < scheduler._activeTimers.length; i++) {
 			var timer = scheduler._activeTimers[i];
 			timeouts.push({
-				started: timer.triggerTime,
+				started: timer.started,
 				ends: timer.triggerTime
 			});
 		}
