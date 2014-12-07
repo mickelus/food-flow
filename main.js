@@ -20,12 +20,13 @@ scheduler.onChange(function(){
 		}
 		var currentTime = new Date().getTime();
 		var remaining = lowestTimer.ends - currentTime;
-		remainingGlobal = remaining;
 		activeTimerGlobal = lowestTimer;
-		var minutes = Math.floor((remaining/1000) / 60);
-		var seconds = Math.floor((remaining/1000)) - minutes * 60;
-		document.querySelector('#time').innerHTML = (minutes<10?'0':'') + minutes + ":" + (seconds<10?'0':'') + seconds;
-		document.querySelector('#timerProgress').style.height = (remaining/(lowestTimer.ends - lowestTimer.started))*100 + "%";
+		if(remaining>0){
+			var minutes = Math.floor((remaining/1000) / 60);
+			var seconds = Math.floor((remaining/1000)) - minutes * 60;
+			document.querySelector('#time').innerHTML = (minutes<10?'0':'') + minutes + ":" + (seconds<10?'0':'') + seconds;
+			document.querySelector('#timerProgress').style.height = (remaining/(lowestTimer.ends - lowestTimer.started))*100 + "%";
+		}
 	}
 	//If no timers, do nothing?  
 })
@@ -33,10 +34,20 @@ scheduler.onChange(function(){
 scheduler.onTick(function(){
 	var currentTime = new Date().getTime();
 	var remaining = activeTimerGlobal.ends - currentTime;
-	var minutes = Math.floor((remaining/1000) / 60);
-	var seconds = Math.floor((remaining/1000)) - minutes * 60;
-	document.querySelector('#time').innerHTML = (minutes<10?'0':'') + minutes + ":" + (seconds<10?'0':'') + seconds;
-	document.querySelector('#timerProgress').style.height = (remaining/(activeTimerGlobal.ends - activeTimerGlobal.started))*100 + "%";
+	if(remaining<=0){
+		document.querySelector('#time').style.visibility = "hidden";
+		document.querySelector('#timerProgress').style.visibility = "hidden";
+		document.querySelector('#timerProgress').style.visibility = "hidden";
+	}
+	else{
+		document.querySelector('#time').style.visibility = "visible";
+		document.querySelector('#timerProgress').style.visibility = "visible";
+		document.querySelector('#timerView').style.visibility = "visible";
+		var minutes = Math.floor((remaining/1000) / 60);
+		var seconds = Math.floor((remaining/1000)) - minutes * 60;
+		document.querySelector('#time').innerHTML = (minutes<10?'0':'') + minutes + ":" + (seconds<10?'0':'') + seconds;
+		document.querySelector('#timerProgress').style.height = (remaining/(activeTimerGlobal.ends - activeTimerGlobal.started))*100 + "%";
+	}
 })
 
 
