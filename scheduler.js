@@ -208,6 +208,11 @@ var scheduler = {
 		if(changed) {
 			scheduler._callListeners();
 		}
+		
+		if(scheduler._activeTimers.length === 0) {
+			clearInterval(scheduler._timerLoop);
+			scheduler._timerLoop = null;
+		}
 	},
 	_callListeners: function() {
 		for (var i = 0; i < scheduler._listeners.length; i++) {
