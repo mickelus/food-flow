@@ -7,10 +7,14 @@ scheduler.onChange(function() {
 })
 
 var activeTimerGlobal;
+scheduler.fastTimers = true;
 //Update Timer
 scheduler.onChange(function(){
 	var activeTimers = scheduler.getTimers();
 	if(activeTimers.length>0){
+		document.querySelector('#time').style.visibility = "visible";
+		document.querySelector('#timerProgress').style.visibility = "visible";
+		document.querySelector('#timerView').style.visibility = "visible";
 		var lowestTimer = activeTimers[0];
 		
 		for (var i = 0; i < activeTimers.length; i++) {
@@ -28,7 +32,12 @@ scheduler.onChange(function(){
 			document.querySelector('#timerProgress').style.height = (remaining/(lowestTimer.ends - lowestTimer.started))*100 + "%";
 		}
 	}
-	//If no timers, do nothing?  
+	else{
+		document.querySelector('#time').style.visibility = "hidden";
+		document.querySelector('#timerProgress').style.visibility = "hidden";
+		document.querySelector('#timerView').style.visibility = "hidden";
+	}
+	//If finished, say so
 })
 
 scheduler.onTick(function(){
@@ -37,7 +46,7 @@ scheduler.onTick(function(){
 	if(remaining<=0){
 		document.querySelector('#time').style.visibility = "hidden";
 		document.querySelector('#timerProgress').style.visibility = "hidden";
-		document.querySelector('#timerProgress').style.visibility = "hidden";
+		document.querySelector('#timerView').style.visibility = "hidden";
 	}
 	else{
 		document.querySelector('#time').style.visibility = "visible";

@@ -89,17 +89,20 @@ body, html {
     box-shadow: 0 1px 1px rgba(0,0,0,0.2);
     right: 20px;
     bottom: 20px;
+    visibility: hidden;
 }
 #timerProgress{
     height:100%;
     border-radius:50%;
     font-weight: bold;
     background-color: #5784C8;
+    visibility: hidden;
 }
 #time{
     position: absolute;
     right: 80px;
     bottom: 35px;
+    visibility: hidden;
 }
 .noselect {
     -webkit-touch-callout: none;
