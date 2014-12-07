@@ -66,12 +66,10 @@ function timerVisible(b){
 	if(b){
 		document.querySelector('#time').style.visibility = "visible";
 		document.querySelector('#timerProgress').style.visibility = "visible";
-		document.querySelector('#timerView').style.visibility = "visible";
 	}
 	else{
 		document.querySelector('#time').style.visibility = "hidden";
 		document.querySelector('#timerProgress').style.visibility = "hidden";
-		document.querySelector('#timerView').style.visibility = "hidden";
 	}
 }
 
