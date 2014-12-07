@@ -4,6 +4,7 @@ var scheduler = {
 	_completedSteps: [],
 	_delayedSteps: [],
 	_listeners: [],
+	_timerListeners: [],
 	_activeTimers: [],
 
 	_timerLoop: null,
@@ -68,6 +69,9 @@ var scheduler = {
 	},
 	onChange: function(callback) {
 		scheduler._listeners.push(callback);
+	},
+	onTick: function(callback) {
+		scheduler._timerListeners.push(callback);
 	},
 	getTimers: function() {
 		var timeouts = [];
@@ -199,6 +203,8 @@ var scheduler = {
 			}
 		}
 
+		scheduler._callTimerListeners();
+
 		if(changed) {
 			scheduler._callListeners();
 		}
@@ -206,6 +212,11 @@ var scheduler = {
 	_callListeners: function() {
 		for (var i = 0; i < scheduler._listeners.length; i++) {
 			scheduler._listeners[i]();
+		}
+	},
+	_callTimerListeners: function() {
+		for (var i = 0; i < scheduler._listeners.length; i++) {
+			scheduler._timerListeners[i]();
 		}
 	}
 };
