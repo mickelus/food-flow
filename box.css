@@ -54,6 +54,14 @@
     opacity: 0.5;
 }
 
+.box.done {
+    background-color: #63a14f;
+    color: white;
+    font-size: 30px;
+    line-height: 18px;
+    font-weight: 100;
+}
+
 .box .listDiv {
     padding-bottom: 120px;
     position: relative;

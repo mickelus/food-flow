@@ -8,7 +8,12 @@ function removeBox() {
             that.remove();
             scheduler.completeStep(scheduler.getCurrentStep().id);
             if(!scheduler.getCurrentStep()) {
-                showBox({description: "Väntar på timer"}, "waiting");
+                if(scheduler.getProgress() == 1) {
+                    showBox({description: "Smaklig måltid!"}, "done");
+                } else {
+                    showBox({description: "Väntar på timer"}, "waiting");
+                }
+                
             }
         }, 300);
         return false;
