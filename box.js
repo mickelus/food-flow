@@ -7,7 +7,10 @@ function removeBox() {
         setTimeout(function() {
             that.remove();
             scheduler.completeStep(scheduler.getCurrentStep().id);
-        }, 200);
+            if(!scheduler.getCurrentStep()) {
+                showBox({description: "Väntar på timer"}, "waiting");
+            }
+        }, 300);
         return false;
     } else {
         $(this).data("dragging", false);
@@ -15,9 +18,16 @@ function removeBox() {
     return true;
 }
 
-function showBox(text) {
+function showBox(step, clazz) {
     var box = $($("#boxTemplate").html());
-    box.find("span").text(text);
+    box.find("span").text(step.description);
+    box.addClass(clazz);
+
+    for (var i = 0; step.tools && i < step.tools.length; i++) {
+        var item = $("<li>");
+        item.text(step.tools[i]);
+        box.find("ul").append(item);
+    };
 
     setTimeout(function() {
         box.addClass("show");
@@ -48,15 +58,25 @@ function showBox(text) {
         }
     });
 
+    
     $("#boxContainer").append(box);
 }
 
 scheduler.onChange(function() {
     var step = scheduler.getCurrentStep();
+
+    $("#boxContainer .box").each(function() {
+        var that = $(this);
+        that.addClass("removed");
+        setTimeout(function() {
+            that.remove();
+        }, 200);
+    });
+    
     if(step) {
-        showBox(step.description);
+        showBox(step);
     }
     
 })
 
-showBox(scheduler.getCurrentStep().description);
+showBox(scheduler.getCurrentStep());
