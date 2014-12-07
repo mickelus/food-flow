@@ -6,6 +6,7 @@ scheduler.onChange(function() {
     document.querySelector('#progress').style.height = (progress*99 + 1) + "%";    
 })
 
+var activeTimerGlobal;
 //Update Timer
 scheduler.onChange(function(){
 	var activeTimers = scheduler.getTimers();
@@ -19,12 +20,23 @@ scheduler.onChange(function(){
 		}
 		var currentTime = new Date().getTime();
 		var remaining = lowestTimer.ends - currentTime;
+		remainingGlobal = remaining;
+		activeTimerGlobal = lowestTimer;
 		var minutes = Math.floor((remaining/1000) / 60);
 		var seconds = Math.floor((remaining/1000)) - minutes * 60;
-		document.querySelector('#time').innerHTML = minutes + ":" + seconds;
+		document.querySelector('#time').innerHTML = (minutes<10?'0':'') + minutes + ":" + (seconds<10?'0':'') + seconds;
 		document.querySelector('#timerProgress').style.height = (remaining/(lowestTimer.ends - lowestTimer.started))*100 + "%";
 	}
 	//If no timers, do nothing?  
+})
+
+scheduler.onTick(function(){
+	var currentTime = new Date().getTime();
+	var remaining = lowestTimer.ends - currentTime;
+	var minutes = Math.floor((remaining/1000) / 60);
+	var seconds = Math.floor((remaining/1000)) - minutes * 60;
+	document.querySelector('#time').innerHTML = (minutes<10?'0':'') + minutes + ":" + (seconds<10?'0':'') + seconds;
+	document.querySelector('#timerProgress').style.height = (remaining/(activeTimerGlobal.ends - activeTimerGlobal.started))*100 + "%";
 })
 
 
