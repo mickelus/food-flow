@@ -22,7 +22,7 @@ scheduler.onChange(function(){
 		var minutes = Math.floor((remaining/1000) / 60);
 		var seconds = Math.floor((remaining/1000)) - minutes * 60;
 		document.querySelector('#time').innerHTML = minutes + ":" + seconds;
-		document.querySelector('#timerProgress').style.height = ((lowestTimer.ends - lowestTimer.started)/remaining)*100 + "%";
+		document.querySelector('#timerProgress').style.height = (remaining/(lowestTimer.ends - lowestTimer.started))*100 + "%";
 	}
 	//If no timers, do nothing?  
 })
