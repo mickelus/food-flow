@@ -220,7 +220,7 @@ var scheduler = {
 		}
 	},
 	_callTimerListeners: function() {
-		for (var i = 0; i < scheduler._listeners.length; i++) {
+		for (var i = 0; i < scheduler._timerListeners.length; i++) {
 			scheduler._timerListeners[i]();
 		}
 	}
