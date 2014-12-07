@@ -32,7 +32,7 @@ scheduler.onChange(function(){
 
 scheduler.onTick(function(){
 	var currentTime = new Date().getTime();
-	var remaining = lowestTimer.ends - currentTime;
+	var remaining = activeTimerGlobal.ends - currentTime;
 	var minutes = Math.floor((remaining/1000) / 60);
 	var seconds = Math.floor((remaining/1000)) - minutes * 60;
 	document.querySelector('#time').innerHTML = (minutes<10?'0':'') + minutes + ":" + (seconds<10?'0':'') + seconds;
